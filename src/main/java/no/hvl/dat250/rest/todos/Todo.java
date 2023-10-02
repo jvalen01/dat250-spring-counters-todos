@@ -1,8 +1,8 @@
 package no.hvl.dat250.rest.todos;
 
 import java.util.Objects;
-
 public class Todo {
+    
     private Long id;
     private String summary;
     private String description;
