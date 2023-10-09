@@ -1,0 +1,71 @@
+<!-- app-todo-list.component.html -->
+
+<h1>Todos</h1>
+
+<mat-table [dataSource]="dataSource">
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+    <mat-cell *matCellDef="let todo"> {{ todo.id }} </mat-cell>
+  </ng-container>
+
+  <!-- Description Column -->
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+    <mat-cell *matCellDef="let todo"> {{ todo.description }} </mat-cell>
+  </ng-container>
+
+  <!-- Summary Column -->
+  <ng-container matColumnDef="summary">
+    <mat-header-cell *matHeaderCellDef> Summary </mat-header-cell>
+    <mat-cell *matCellDef="let todo"> {{ todo.summary }} </mat-cell>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+    <mat-cell *matCellDef="let todo">
+      <button mat-button (click)="deleteTodo(todo.id)">Delete</button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['id', 'description', 'summary', 'actions']"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['id', 'description', 'summary', 'actions'];"></mat-row>
+</mat-table>
+
+<mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+
+
+<h2>Add Todo</h2>
+<!-- Description Input -->
+<mat-form-field appearance="outline">
+  <mat-label>Description</mat-label>
+  <input matInput [(ngModel)]="newTodo.description">
+</mat-form-field>
+
+<!-- Summary Input -->
+<mat-form-field appearance="outline">
+  <mat-label>Summary</mat-label>
+  <input matInput [(ngModel)]="newTodo.summary">
+</mat-form-field>
+
+<!-- Add Button -->
+<button mat-raised-button color="accent" (click)="addTodo()">Add</button>
+
+<!-- Todo Cards -->
+<div *ngFor="let todo of dataSource.data">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ todo.summary }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ todo.description }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="warn" (click)="deleteTodo(todo.id)">Delete</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
